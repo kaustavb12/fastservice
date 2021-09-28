@@ -1,0 +1,18 @@
+# Folder container test cases
+**/tests/
+
+# Compiled Python bytecode
+*.py[cod]
+
+# Pycache folders
+**/__pycache__
+
+# Pytest Cache
+**/.pytest_cache/
+
+#misc
+.gitignore
+*Dockerfile*
+*.md
+.dockerignore
+.git

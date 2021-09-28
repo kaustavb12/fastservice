@@ -1,0 +1,46 @@
+version: "3.8"
+
+# Default logging option
+x-default-opts: &default-opts
+  logging:
+    options:
+      max-size: "1m"
+
+services:
+  fastservice:
+    <<: *default-opts
+    image: ${DOCKERIMG?Variable not set}
+    healthcheck:
+      test: python /app/healthcheck.py
+      interval: 1m
+      timeout: 3s
+      retries: 2
+    configs: 
+      - source: fastservice_env_config
+        target: /env_config
+    secrets:
+      - fastservice_postgres_user
+      - fastservice_postgres_passwd
+      - api_client_secret
+    deploy:
+      mode: replicated
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        monitor: 10s
+        max_failure_ratio: 0.7
+        order: start-first
+
+configs:
+  fastservice_env_config:
+    external: true
+
+secrets:
+  fastservice_postgres_user:
+    external: true
+  fastservice_postgres_passwd:
+    external: true
+  api_client_secret:
+    external: true

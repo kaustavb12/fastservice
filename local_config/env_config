@@ -1,0 +1,17 @@
+SERVICE_NAME="Fastservice"
+SERVICE_DESCRIPTION="Quickly add your APIs and deploy new services using Fastservice"
+
+logging_level="DEBUG"
+
+ORIGINS="*"
+
+FASTSERVICE_POSTGRES_HOST="db"
+FASTSERVICE_POSTGRES_DB="fastservice"
+
+LOG_TYPE="STDOUT"
+
+AUTH0_DOMAIN="auth0.domain"
+API_IDENTIFIER="api-identifier"
+ALGORITHMS="RS256"
+M2M_USER="m2m_user"
+API_CLIENT_ID="api_client_id"

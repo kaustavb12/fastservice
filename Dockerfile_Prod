@@ -1,0 +1,23 @@
+FROM python:3.8 as builder
+
+COPY ./app/requirements.txt /
+
+RUN pip wheel --no-cache-dir --no-deps --wheel-dir /wheels -r requirements.txt
+
+
+
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-slim-2020-12-19
+
+RUN adduser --disabled-password worker
+
+RUN chown worker:worker /app
+
+COPY --from=builder /wheels /wheels
+
+RUN pip install --no-cache /wheels/* && rm main.py && rm -rf /wheels
+
+USER worker
+
+COPY ./app /app
+
+RUN rm requirements.txt

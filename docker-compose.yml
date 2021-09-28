@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+
+  fastservice:
+    build: .
+    image: "fastservice:0.1"
+    ports: 
+      - "8000:80"
+    volumes:
+      - ./app/app:/app/app
+      - ./local_config/env_config:/env_config
+      - ./local_config/secrets/api_client_secret:/run/secrets/api_client_secret
+      - ./local_config/secrets/postgres_user:/run/secrets/fastservice_postgres_user
+      - ./local_config/secrets/postgres_passwd:/run/secrets/fastservice_postgres_passwd
